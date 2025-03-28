@@ -16,7 +16,6 @@ import java.util.Map;
 
 @Service
 public class AuthService {
-
     public String authUser(String clientId, String scope, String redirectUri){
         String AUTH_URL = "https://app.hubspot.com/oauth/authorize";
         String url = AUTH_URL + "?client_id=" + clientId + "&scope=" + scope + "&redirect_uri=" + redirectUri;
@@ -25,24 +24,20 @@ public class AuthService {
     }
 
     public AuthResponseDto getToken(String clientId, String clientSecret, String code){
-        System.out.println("codigo obtido: " + code);
-
         String url = "https://api.hubapi.com/oauth/v1/token";
-
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        HttpEntity<String> entity = new HttpEntity<>(headers);
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        TokenRequestBodyDto body = new TokenRequestBodyDto(
-                "authorization_code",
-                clientId,
-                clientSecret,
-                "http://localhost:8080/api/auth/getCode",
-                code
-        );
+        String body = "grant_type=authorization_code" +
+                "&client_id=" + clientId +
+                "&client_secret=" + clientSecret +
+                "&redirect_uri=" + "http%3A%2F%2Flocalhost%3A8080%2Fapi%2Fauth%2FgetCode" +
+                "&code=" + code;
 
-        HttpEntity<TokenRequestBodyDto> requestEntity = new HttpEntity<>(body, headers);
+        HttpEntity<String> requestEntity = new HttpEntity<>(body, headers);
+        ResponseEntity<AuthResponseDto> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, AuthResponseDto.class);
 
-        return new AuthResponseDto("bearer", "oi", 12, "aaaaaaaaaaaaa");
+        return response.getBody();
     }
 }
