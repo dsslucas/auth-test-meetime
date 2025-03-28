@@ -3,6 +3,7 @@ package com.example.api.controller;
 import com.example.api.model.dto.contact.PropertyContactDto;
 import com.example.api.service.ContactService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,5 +19,11 @@ public class ContactRestController {
     @ResponseStatus(HttpStatus.OK)
     public String createContact(@RequestBody PropertyContactDto data){
         return contactService.createContact(data);
+    }
+
+    @GetMapping("/test")
+    @ResponseStatus(HttpStatus.OK)
+    public String test() {
+        return "tudo certo";
     }
 }
