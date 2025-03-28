@@ -1,7 +1,9 @@
 package com.example.api.controller;
 
 import com.example.api.model.dto.AuthRequestDto;
+import com.example.api.model.dto.AuthResponseDto;
 import com.example.api.service.AuthService;
+import lombok.AllArgsConstructor;
 import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +23,9 @@ public class AuthRestController {
     @Value("${app.api.scope}")
     private String scope;
 
+    @Value("${app.api.client_secret}")
+    private String clientSecret;
+
     private final AuthService authService = new AuthService();
 
     @GetMapping("/test")
@@ -39,7 +44,7 @@ public class AuthRestController {
 
     @GetMapping("/getCode")
     @ResponseStatus(HttpStatus.OK)
-    public String getToken(@RequestParam("code") String code){
-        return authService.getToken(code);
+    public AuthResponseDto getToken(@RequestParam("code") String code){
+        return authService.getToken(clientId, clientSecret, code);
     }
 }
