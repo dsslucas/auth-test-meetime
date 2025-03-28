@@ -49,17 +49,7 @@ public class AuthRestController {
     @GetMapping("/getCode")
     @ResponseStatus(HttpStatus.OK)
     public AuthResponseDto getToken(@RequestParam("code") String code, HttpServletRequest request) {
-        AuthResponseDto authResponse = authService.getToken(clientId, clientSecret, code);
-
-        // Save manually the token of session
-        request.getSession().setAttribute("ACCESS_TOKEN", authResponse.access_token());
-
-        // Define the authenticated user on Spring Security scope
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(authResponse.access_token(), null, List.of(new SimpleGrantedAuthority("ROLE_USER")));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
+        AuthResponseDto authResponse = authService.getToken(clientId, clientSecret, code, request);
         return authResponse;
     }
 }
