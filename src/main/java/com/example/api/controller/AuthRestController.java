@@ -1,10 +1,7 @@
 package com.example.api.controller;
 
-import com.example.api.model.dto.AuthRequestDto;
-import com.example.api.model.dto.AuthResponseDto;
+import com.example.api.model.dto.auth.AuthResponseDto;
 import com.example.api.service.AuthService;
-import lombok.AllArgsConstructor;
-import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

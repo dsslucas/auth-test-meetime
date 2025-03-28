@@ -1,18 +1,9 @@
 package com.example.api.service;
 
-import com.example.api.model.dto.AuthResponseDto;
-import com.example.api.model.dto.TokenRequestBodyDto;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import com.example.api.model.dto.auth.AuthResponseDto;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class AuthService {

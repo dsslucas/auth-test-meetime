@@ -1,4 +1,4 @@
-package com.example.api.model.dto;
+package com.example.api.model.dto.auth;
 
 public record AuthResponseDto(
         String token_type,
