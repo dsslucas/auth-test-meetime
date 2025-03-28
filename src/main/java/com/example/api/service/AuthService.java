@@ -2,6 +2,8 @@ package com.example.api.service;
 
 import com.example.api.model.dto.auth.AuthResponseDto;
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,5 +32,10 @@ public class AuthService {
         ResponseEntity<AuthResponseDto> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, AuthResponseDto.class);
 
         return response.getBody();
+    }
+
+    public String getToken(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getPrincipal().toString();
     }
 }
