@@ -1,4 +1,4 @@
-package com.example.api.model.dto;
+package com.example.api.model.dto.auth;
 
 public record TokenRequestBodyDto(
         String grant_type,
