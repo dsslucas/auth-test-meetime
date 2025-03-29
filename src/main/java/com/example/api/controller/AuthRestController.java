@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
 
 @RestController
 @RequestMapping("/auth")
@@ -25,11 +26,6 @@ public class AuthRestController {
 
     private final AuthService authService = new AuthService();
 
-    @GetMapping("/test")
-    public ResponseEntity<String> test() {
-        return ResponseEntity.ok("Funcionando!");
-    }
-
     @PostMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public String authUser() {
@@ -38,7 +34,7 @@ public class AuthRestController {
 
     @GetMapping("/getCode")
     @ResponseStatus(HttpStatus.OK)
-    public AuthResponseDto getToken(@RequestParam("code") String code, HttpServletRequest request) {
+    public AuthResponseDto getToken(@RequestParam("code") @Validated String code, HttpServletRequest request) {
         return authService.getToken(clientId, clientSecret, code, request);
     }
 }

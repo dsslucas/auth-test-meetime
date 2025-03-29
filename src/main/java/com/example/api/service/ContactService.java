@@ -14,6 +14,7 @@ public class ContactService {
 
     public String createContact(PropertyContactDto data){
         try {
+
             CreateContactRequestDto body = new CreateContactRequestDto(data);
             String url = "https://api.hubapi.com/crm/v3/objects/contacts";
             String token = authService.getToken();

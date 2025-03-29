@@ -5,6 +5,7 @@ import com.example.api.exceptions.ConflictException;
 import com.example.api.exceptions.ForbiddenException;
 import com.example.api.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -22,6 +23,20 @@ public class ExceptionHandlerAdvice {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public String handleGeneralException(Exception ex) {
         return ex.getMessage();
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
+    public String  handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+        var errors = ex.getFieldErrors()
+                .stream()
+                .toList();
+        String errorMessage = ex.getFieldErrors()
+                .stream()
+                .map(f -> f.getDefaultMessage())
+                .reduce("", (msg, fieldError) -> msg.isEmpty() ? fieldError : msg + " " + fieldError);
+
+        return errorMessage;
     }
 
     @ExceptionHandler(BadRequestException.class)
