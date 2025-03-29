@@ -44,7 +44,7 @@ public class SecurityConfig {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.setContentType("application/json");
             ObjectMapper objectMapper = new ObjectMapper();
-            response.getWriter().write(objectMapper.writeValueAsString("Você não está autenticado. Faça o login."));
+            response.getWriter().write(objectMapper.writeValueAsString("You're not authenticated. Please, log in."));
         };
     }
 
@@ -55,7 +55,7 @@ public class SecurityConfig {
             response.setStatus(HttpStatus.FORBIDDEN.value());
             response.setContentType("application/json");
             ObjectMapper objectMapper = new ObjectMapper();
-            response.getWriter().write(objectMapper.writeValueAsString("Você não tem permissão para acessar este recurso."));
+            response.getWriter().write(objectMapper.writeValueAsString("You don't have permission to do this."));
         };
     }
 }
