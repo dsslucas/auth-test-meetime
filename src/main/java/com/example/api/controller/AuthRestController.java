@@ -26,11 +26,6 @@ public class AuthRestController {
 
     private final AuthService authService = new AuthService();
 
-    @GetMapping("/test")
-    public ResponseEntity<String> test() {
-        return ResponseEntity.ok("Funcionando!");
-    }
-
     @PostMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public String authUser() {

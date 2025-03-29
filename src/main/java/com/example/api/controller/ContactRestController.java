@@ -17,12 +17,4 @@ public class ContactRestController {
     public String createContact(@RequestBody @Validated PropertyContactDto data){
         return contactService.createContact(data);
     }
-
-    @GetMapping("/test")
-    @ResponseStatus(HttpStatus.OK)
-    public String test() {
-        System.out.println("Usuário autenticado: " + SecurityContextHolder.getContext().getAuthentication());
-
-        return "tudo certo";
-    }
 }
