@@ -2,13 +2,12 @@ package com.example.api.controller;
 
 import com.example.api.model.dto.auth.AuthResponseDto;
 import com.example.api.service.AuthService;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 
@@ -32,7 +31,10 @@ public class AuthRestController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Autenticação do usuário | User authentication", description = "Autenticação do usuário ao HubSpot | User authentication in HubSpot.")
+    @Operation(
+            summary = "Autenticação do usuário | User authentication",
+            description = "Autenticação do usuário ao HubSpot | User authentication in HubSpot."
+    )
     public String authUser() {
         return authService.authUser(clientId, scope, redirectUri);
     }
