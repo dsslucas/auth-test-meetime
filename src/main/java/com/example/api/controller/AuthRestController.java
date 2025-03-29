@@ -34,7 +34,7 @@ public class AuthRestController {
 
     @GetMapping("/getCode")
     @ResponseStatus(HttpStatus.OK)
-    public AuthResponseDto getToken(@RequestParam("code") @Validated String code, HttpServletRequest request) {
+    public AuthResponseDto getToken(@RequestParam("code") @Validated String code, HttpServletRequest request) throws Exception{
         return authService.getToken(clientId, clientSecret, code, request);
     }
 }
