@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,5 +22,11 @@ public class ContactRestController {
     @Operation(summary = "Criação de contato | Create contact", description = "Registro de contato na conta de teste de desenvolvedor | Contact register on development test account.")
     public String createContact(@RequestBody @Validated PropertyContactDto data){
         return contactService.createContact(data);
+    }
+
+    @PostMapping(value = "/webhook", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public void receiveWebhook(@RequestBody Object webhookNotificationPayload) {
+        System.out.println("Webhook Notification Received: {}" + webhookNotificationPayload);
     }
 }
